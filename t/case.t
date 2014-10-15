@@ -59,13 +59,4 @@ subtest 'variables' => sub {
     };
 };
 
-    subtest 'todo' => sub {
-        case 'basically name:{name}' => {
-            name => 'hixi',
-        }, sub {
-            note_todo 'not yet implementated';
-        };
-
-    };
-
 done_testing;

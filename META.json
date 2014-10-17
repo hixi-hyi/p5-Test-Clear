@@ -48,8 +48,25 @@
             "Test::Simple" : "1.001006",
             "perl" : "5.008005"
          }
+      },
+      "test" : {
+         "requires" : {
+            "Test::Mock::Guard" : "0",
+            "Test::Tester" : "0"
+         }
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/hixi-hyi/p5-Test-Clear/issues"
+      },
+      "homepage" : "https://github.com/hixi-hyi/p5-Test-Clear",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/hixi-hyi/p5-Test-Clear.git",
+         "web" : "https://github.com/hixi-hyi/p5-Test-Clear"
+      }
+   },
    "version" : "0.01"
 }

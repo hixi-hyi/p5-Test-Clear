@@ -9,7 +9,7 @@ use Data::Dumper;
 use Scope::Guard;
 
 our $VERSION = "0.01";
-our @EXPORT = qw(case todo_scope);
+our @EXPORT = qw(case todo_scope todo_note);
 
 sub dumper {
     my $value = shift;
@@ -53,6 +53,14 @@ sub todo_scope {
     Scope::Guard->new(sub { $tb->todo_end });
 }
 
+sub todo_note {
+    my ($reason) = @_;
+    my $tb = Test::More->builder;
+    $tb->todo_start($reason);
+    fail $reason;
+    $tb->todo_end;
+}
+
 1;
 __END__
 
@@ -68,9 +76,7 @@ Test::Clear - Simply testing module
     use MyModule;
     my $module = MyModule->new;
 
-    case "basically name:{name}" => {
-        name => 'hixi',
-    }, sub {
+    case "basically name:{name}" => { name => 'hixi' }, sub {
         my $dataset = @_;
         my $ret = $module->get_person($dataset->{name});
         is $ret, xxxxx;
@@ -87,37 +93,63 @@ Test::Clear - Simply testing module
 
 Test::Clear is simply testing module.
 
+=head1 MODULE SUPPORTED
+
+=over
+
+=item Test::Pretty (>= 0.30)
+
+=item Test::Flatten (not yet 2014/10/17)
+
+=back
+
 =head1 METHODS
 
-=head2
+=head2 case
 
 =head3
 
-    case "basically name:{name}" => {
-        name => 'hixi',
-    }, sub {
-        my $dataset = @_;
+    case "basically name:{name}" => { name => 'hixi' }, sub {
+        my $dataset = shift;
         my $ret = $module->get_person($dataset->{name});
         is $ret, xxxxx;
     };
+    # Subtest: basically name:hixi
 
 =head3
 
-   case 'basically uri:{uri}' => sub {
-       my $schema    = 'http';
-       my $authority = 'example.com';
-       my $uri       = $schema. '://'. $authority;
+   case 'request person data uri:{uri}' => sub {
+       my $user_id = 1;
+       my $uri     = 'http://example.com/person/' . $user_id;
        return {
-           schema    => $schema,
-           authority => $authority,
-           uri       => $uri,
+           uri     => $uri,
+           user_id => $user_id,
        }
    }, sub {
        my $dataset = shift;
-       is $dataset->{schema}, 'http';
-       is $dataset->{authority}, 'example.com';
-       is $dataset->{uri}, 'http://example.com';
+       my $ret = $module->request($dataset->{uri});
+       is $ret->{person}->{id}, $dataset->{user_id};
    };
+    # Subtest: request person data uri:http://example.com/person/1
+
+
+=head2 todo_scope
+
+=head3
+
+    subtest 'optional case' => sub {
+        my $guard = todo_scope 'not yet implementated';
+        fail;
+    };
+    # Subtest: optional case
+    not ok 1 # TODO not yet implementated
+
+=head2 todo_scope
+
+=head3
+
+    todo_note 'optional case';
+    # not ok 1 - optional case # TODO optional case
 
 =head1 LICENSE
 

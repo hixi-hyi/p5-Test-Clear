@@ -8,9 +8,7 @@ Test::Clear - Simply testing module
     use MyModule;
     my $module = MyModule->new;
 
-    case "basically name:{name}" => {
-        name => 'hixi',
-    }, sub {
+    case "basically name:{name}" => { name => 'hixi' }, sub {
         my $dataset = @_;
         my $ret = $module->get_person($dataset->{name});
         is $ret, xxxxx;
@@ -27,37 +25,57 @@ Test::Clear - Simply testing module
 
 Test::Clear is simply testing module.
 
+# MODULE SUPPORTED
+
+- Test::Pretty (>= 0.30)
+- Test::Flatten (not yet 2014/10/17)
+
 # METHODS
 
-## 
+## case
 
 ### 
 
-    case "basically name:{name}" => {
-        name => 'hixi',
-    }, sub {
-        my $dataset = @_;
+    case "basically name:{name}" => { name => 'hixi' }, sub {
+        my $dataset = shift;
         my $ret = $module->get_person($dataset->{name});
         is $ret, xxxxx;
     };
+    # Subtest: basically name:hixi
 
 ### 
 
-    case 'basically uri:{uri}' => sub {
-        my $schema    = 'http';
-        my $authority = 'example.com';
-        my $uri       = $schema. '://'. $authority;
+    case 'request person data uri:{uri}' => sub {
+        my $user_id = 1;
+        my $uri     = 'http://example.com/person/' . $user_id;
         return {
-            schema    => $schema,
-            authority => $authority,
-            uri       => $uri,
+            uri     => $uri,
+            user_id => $user_id,
         }
     }, sub {
         my $dataset = shift;
-        is $dataset->{schema}, 'http';
-        is $dataset->{authority}, 'example.com';
-        is $dataset->{uri}, 'http://example.com';
+        my $ret = $module->request($dataset->{uri});
+        is $ret->{person}->{id}, $dataset->{user_id};
     };
+     # Subtest: request person data uri:http://example.com/person/1
+
+## todo\_scope
+
+### 
+
+    subtest 'optional case' => sub {
+        my $guard = todo_scope 'not yet implementated';
+        fail;
+    };
+    # Subtest: optional case
+    not ok 1 # TODO not yet implementated
+
+## todo\_scope
+
+### 
+
+    todo_note 'optional case';
+    # not ok 1 - optional case # TODO optional case
 
 # LICENSE
 

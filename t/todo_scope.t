@@ -10,7 +10,7 @@ subtest 'todo scope' => sub {
         fail;
     };
     check_test(
-        sub { fail },{
+        sub { fail }, {
         ok => 0,
     });
 };

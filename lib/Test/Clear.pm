@@ -99,7 +99,7 @@ Test::Clear is simply testing module.
 
 =item Test::Pretty (>= 0.30)
 
-=item Test::Flatten (not yet 2014/10/17)
+=item Test::Flatten (>= 0.10)
 
 =back
 

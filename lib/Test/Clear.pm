@@ -54,10 +54,11 @@ sub todo_scope {
 }
 
 sub todo_note {
-    my ($reason) = @_;
+    my ($caption, $reason) = @_;
+    $reason ||= '';
     my $tb = Test::More->builder;
     $tb->todo_start($reason);
-    fail $reason;
+    fail $caption;
     $tb->todo_end;
 }
 
@@ -149,7 +150,10 @@ Test::Clear is simply testing module.
 =head3
 
     todo_note 'optional case';
-    # not ok 1 - optional case # TODO optional case
+    # not ok 1 - optional case # TODO
+
+    todo_note 'optional case', 'not yet implementated';
+    # not ok 1 - optional case # TODO not yet implementated
 
 =head1 LICENSE
 

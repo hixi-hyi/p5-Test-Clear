@@ -59,6 +59,8 @@ Test::Clear is simply testing module.
     };
      # Subtest: request person data uri:http://example.com/person/1
 
+
+
 ## todo\_scope
 
 ### 
@@ -75,7 +77,10 @@ Test::Clear is simply testing module.
 ### 
 
     todo_note 'optional case';
-    # not ok 1 - optional case # TODO optional case
+    # not ok 1 - optional case # TODO
+
+    todo_note 'optional case', 'not yet implementated';
+    # not ok 1 - optional case # TODO not yet implementated
 
 # LICENSE
 

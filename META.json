@@ -46,7 +46,7 @@
          "requires" : {
             "Exporter" : "0",
             "Scope::Guard" : "0",
-            "Test::Simple" : "1.001006",
+            "Test::Simple" : "1.001014",
             "perl" : "5.008005"
          }
       },

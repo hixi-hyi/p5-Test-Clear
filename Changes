@@ -2,6 +2,9 @@ Revision history for Perl extension Test-Clear
 
 {{$NEXT}}
 
+0.04 2015-07-02T07:31:17Z
+    - fix version 'Test::Simple'
+
 0.03 2014-11-27T10:33:49Z
     - add filename and line into description
     - replace fail to pass
